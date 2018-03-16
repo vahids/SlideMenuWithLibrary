@@ -7,9 +7,25 @@
 //
 
 import UIKit
+import SlideMenuControllerSwift
 
-class ViewController: UIViewController {
+class ViewController: SlideMenuController {
 
+    override func awakeFromNib() {
+        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "Main") {
+            self.mainViewController = controller
+            if let c = controller as? BaseTBC {
+                c.menuContainer = self
+            }
+        }
+        if let controller = self.storyboard?.instantiateViewController(withIdentifier: "Right") {
+            self.rightViewController = controller
+        }
+        
+        SlideMenuOptions.contentViewScale = 1
+        SlideMenuOptions.rightViewWidth = 280
+        super.awakeFromNib()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
